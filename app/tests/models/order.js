@@ -1,16 +1,7 @@
 const expect = require('chai').expect;
 const Order = require('@models/order');
-const fixtures = require('@tests/fixtures/model-orders.json');
 
 describe('Order', function() {
-
-    beforeEach(function(done) {
-        Order.deleteMany({}, done);
-    });
-
-    beforeEach(function(done) {
-        Order.insertMany(Object.values(fixtures), done);
-    });
 
     describe('#save()', function() {
 

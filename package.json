@@ -23,6 +23,7 @@
   "_moduleAliasIgnoreWarning": true,
   "_moduleAliases": {
     "@root": ".",
+    "@app": "app",
     "@controllers": "app/controllers",
     "@models": "app/models",
     "@config": "app/config",
@@ -38,6 +39,7 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
+    "chai-http": "^4.3.0",
     "link-module-alias": "^1.2.0",
     "mocha": "^6.1.4",
     "nodemon": "^1.19.0",

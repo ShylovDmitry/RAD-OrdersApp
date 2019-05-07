@@ -1,16 +1,24 @@
 const Order = require('@models/order');
 
 exports.create = async function(req, res) {
-    const order = new Order({
-        title: req.body.title || "Untitled Order"
-    });
-
     try {
+        const order = new Order({
+            title: req.body.title
+        });
+
         let newOrder = await order.save();
-        res.send('Created');
+        res.send(newOrder);
     } catch (err) {
         res.status(500).send({
             message: err.message || "Some error occurred while creating the Order."
         });
     }
+};
+
+exports.doCancel = async function(req, res) {
+
+};
+
+exports.getStatus = async function(req, res) {
+
 };

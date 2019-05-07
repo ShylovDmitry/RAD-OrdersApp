@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use('/', require('./routes'));
-app.use('api/orders', require('./routes/orders'));
+app.use('/api/order', require('./routes/order'));
 
 // error handler
 app.use(function(err, req, res, next) {
