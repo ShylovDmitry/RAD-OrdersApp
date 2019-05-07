@@ -3,7 +3,7 @@ var router = express.Router();
 var orderController = require('@controllers/order');
 
 router.post('/', orderController.create);
-router.post('/:oderId/cancel', orderController.doCancel);
-router.get('/:oderId/status', orderController.getStatus);
+router.post('/:orderId/cancel', orderController.doCancel);
+router.get('/:orderId/status', orderController.getStatus);
 
 module.exports = router;
