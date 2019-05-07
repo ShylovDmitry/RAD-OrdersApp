@@ -1,0 +1,18 @@
+{
+    "order_created" : {
+        "title": "Order Created",
+        "status": "created"
+    },
+    "order_cancelled" : {
+        "title": "Order Cancelled",
+        "status": "cancelled"
+    },
+    "order_confirmed" : {
+        "title": "Order Confirmed",
+        "status": "confirmed"
+    },
+    "order_delivered" : {
+        "title": "Order Delivered",
+        "status": "delivered"
+    }
+}

@@ -16,10 +16,34 @@ const OrderSchema = mongoose.Schema({
         type: String,
         required: true,
         enum: Object.values(STATUSES),
-        default: STATUSES.CREATED
+        default: STATUSES.CREATED,
+        set: function(status) {
+            this._status = this.status;
+            return status;
+        }
     }
 }, {
     timestamps: true
+});
+
+OrderSchema.pre('save', function (next) {
+    var oldStatus = this._status;
+    if (this.isModified('status')) {
+        const allowedStatuses = {
+            [STATUSES.CREATED] : [STATUSES.CREATED],
+            [STATUSES.CONFIRMED] : [STATUSES.CREATED],
+            [STATUSES.CANCELLED] : [STATUSES.CREATED, STATUSES.CONFIRMED],
+            [STATUSES.DELIVERED] : [STATUSES.CONFIRMED],
+        };
+
+        const allowedPreviousStatuses = allowedStatuses[this.status];
+        if (allowedPreviousStatuses.indexOf(oldStatus) === -1) {
+            return next(new Error(`Not allowed flow for status (${oldStatus} => ${this.status})`));
+        } else {
+            next();
+        }
+    }
+    next();
 });
 
 Object.assign(OrderSchema.statics, {

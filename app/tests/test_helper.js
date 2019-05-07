@@ -1,10 +1,12 @@
 const mongoose = require('mongoose');
 const config_database = require('@config/database');
+const chai = require('chai');
+const chaiAsPromised = require('chai-as-promised');
 
-mongoose.Promise = global.Promise;
+chai.use(chaiAsPromised);
 
-before((done) => {
-    mongoose.connect(config_database.test_url, { useNewUrlParser: true });
+before(function(done) {
+    mongoose.connect(config_database.test_url, { useNewUrlParser: true, useFindAndModify: false });
     mongoose.connection
         .once('open', () => done())
         .on('error', (error) => {
@@ -12,12 +14,6 @@ before((done) => {
         });
 });
 
-beforeEach((done) => {
-    mongoose.connection.collections.orders.drop(() => {
-        done();
-    });
-});
-
-after(() => {
+after(function() {
     mongoose.connection.close()
 });
