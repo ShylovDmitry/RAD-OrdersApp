@@ -1,0 +1,18 @@
+{
+    "collections": {
+        "orders": [
+            {
+                "title": "Order #1",
+                "status": "created"
+            },
+            {
+                "title": "Order #2",
+                "status": "cancelled"
+            },
+            {
+                "title": "Order #3",
+                "status": "delivered"
+            }
+        ]
+    }
+}
