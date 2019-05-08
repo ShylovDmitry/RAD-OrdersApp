@@ -27,8 +27,8 @@ exports.create = async function(req, res) {
 
 exports.cancel = async function(req, res) {
     try {
-        let anOrder = await Order.findById(req.params.orderId);
-        const order = OrderService.cancel(anOrder);
+        const anOrder = await Order.findById(req.params.orderId);
+        const order = await OrderService.cancel(anOrder);
 
         res.send(order);
     } catch (err) {
@@ -40,7 +40,7 @@ exports.cancel = async function(req, res) {
 
 exports.getStatus = async function(req, res) {
     try {
-        let order = await Order.findById(req.params.orderId);
+        const order = await Order.findById(req.params.orderId);
         res.json({status: order.status});
     } catch (err) {
         res.status(500).send({

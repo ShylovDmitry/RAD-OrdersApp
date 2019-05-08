@@ -37,7 +37,7 @@ const OrderSchema = mongoose.Schema({
 });
 
 OrderSchema.pre('save', function (next) {
-    var oldStatus = this._status;
+    const oldStatus = this._status;
     if (this.isModified('status')) {
         const allowedStatuses = {
             [STATUSES.CREATED] : [STATUSES.CREATED],
@@ -49,8 +49,6 @@ OrderSchema.pre('save', function (next) {
         const allowedPreviousStatuses = allowedStatuses[this.status];
         if (allowedPreviousStatuses.indexOf(oldStatus) === -1) {
             return next(new Error(`Not allowed flow for status (${oldStatus} => ${this.status})`));
-        } else {
-            next();
         }
     }
     next();
