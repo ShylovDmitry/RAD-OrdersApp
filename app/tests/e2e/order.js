@@ -19,7 +19,7 @@ describe('Order API', function() {
     describe('POST /api/order', function() {
 
         it('should create an order', async function() {
-            postRequest.returns({data: {status: 'confirmed'}});
+            postRequest.returns({body: {status: 'confirmed'}});
 
             const ORDER_TITLE = 'aaaaaaaaa';
 

@@ -1,0 +1,35 @@
+version: "3"
+services:
+  ordersapp:
+    build: ./
+    restart: always
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    links:
+      - paymentsapp
+      - mongo
+    networks:
+      - radnetwork
+
+  paymentsapp:
+    build: ./../RAD-PaymentsApp/
+    restart: always
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./../RAD-PaymentsApp/:/app
+    networks:
+      - radnetwork
+
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - radnetwork
+
+networks:
+  radnetwork:
+    driver: bridge

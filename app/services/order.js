@@ -26,7 +26,7 @@ exports.deliver = async function(order) {
 
 exports.makePayment = async function(order) {
     const paymentResponse = await sendPayment(order);
-    await updateOrderStatusByPaymentResponse(order, paymentResponse.data.status);
+    await updateOrderStatusByPaymentResponse(order, paymentResponse.body.status);
 };
 
 async function sendPayment(order) {
