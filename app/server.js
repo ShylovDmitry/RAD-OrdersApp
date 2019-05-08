@@ -1,14 +1,16 @@
 const express = require('express');
-const path = require('path');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const logger = require('morgan');
-const config_database = require('@config/database');
+const morgan = require('morgan');
+const config = require('@app/config');
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(logger('dev'));
+if (process.env.NODE_ENV !== 'test') {
+    app.use(morgan('dev'));
+}
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -29,7 +31,7 @@ app.use(function(err, req, res, next) {
     });
 });
 
-mongoose.connect(config_database.url, { useNewUrlParser: true });
+mongoose.connect(config.database.url, { useNewUrlParser: true });
 
 app.listen(port, function() {
     console.log('Listening on port ' + port);

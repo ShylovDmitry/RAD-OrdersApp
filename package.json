@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node app/server.js",
-    "dev": "nodemon --watch app app/server.js",
-    "test": "node_modules/.bin/mocha app/tests/**",
+    "start": "cross-env NODE_ENV=prod node app/server.js",
+    "dev": "cross-env NODE_ENV=dev nodemon --watch app app/server.js",
+    "test": "cross-env NODE_ENV=test node_modules/.bin/mocha app/tests/**",
     "postinstall": "link-module-alias",
     "preinstall": "command -v link-module-alias && link-module-alias clean || true"
   },
@@ -26,20 +26,22 @@
     "@app": "app",
     "@controllers": "app/controllers",
     "@models": "app/models",
-    "@config": "app/config",
+    "@services": "app/services",
     "@routes": "app/routes",
-    "@views": "app/views",
     "@tests": "app/tests"
   },
   "dependencies": {
     "express": "^4.16.4",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.5.6",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "superagent": "^5.0.5"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "chai-http": "^4.3.0",
+    "cross-env": "^5.2.0",
     "link-module-alias": "^1.2.0",
     "mocha": "^6.1.4",
     "nodemon": "^1.19.0",

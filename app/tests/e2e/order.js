@@ -2,16 +2,30 @@ const expect = require('chai').expect;
 const chai = require('chai');
 const server = require('@app/server');
 const Order = require('@models/order');
-const fixtures = require('@tests/fixtures/model-orders.json');
+const superagent = require('superagent');
+const sinon = require('sinon');
 
 describe('Order API', function() {
+    let postRequest;
+
+    before(function() {
+        postRequest = sinon.stub(superagent, 'post');
+    });
+
+    after(function() {
+        postRequest.restore();
+    });
 
     describe('POST /api/order', function() {
 
         it('should create an order', async function() {
+            postRequest.returns({data: {status: 'confirmed'}});
+
             const ORDER_TITLE = 'aaaaaaaaa';
+
             const data = {
-                title: ORDER_TITLE
+                title: ORDER_TITLE,
+                amount: 12.43
             };
 
             const res = await chai.request(server)
@@ -25,7 +39,6 @@ describe('Order API', function() {
 
             expect(order).to.be.an('object');
             expect(order.toObject()).to.include.all.keys('title', 'status');
-            expect(order.status).equal(Order.STATUSES.CREATED);
         });
 
     });

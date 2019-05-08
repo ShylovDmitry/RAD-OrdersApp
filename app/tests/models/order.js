@@ -6,28 +6,22 @@ describe('Order', function() {
     describe('#save()', function() {
 
         it('should save', async function() {
+            const ORDER_TITLE = "test 1";
+            const ORDER_AMOUT = 1.03;
+
             const order = new Order({
-                title: "test 1",
-                status: Order.STATUSES.CREATED
+                title: ORDER_TITLE,
+                amount: ORDER_AMOUT
             });
 
             await order.save();
 
             expect(order).to.be.an('object');
             expect(order.toObject()).to.include.all.keys('title', 'status');
+            expect(order.title).to.equal(ORDER_TITLE);
+            expect(order.amount).to.equal(ORDER_AMOUT);
             expect(order.status).to.equal(Order.STATUSES.CREATED);
         });
-
-        it('should save with default status', async function() {
-            const order = new Order({
-                title: "test 1"
-            });
-
-            await order.save();
-
-            expect(order.status).to.equal(Order.STATUSES.CREATED);
-        });
-
     });
 
     describe('#status', function() {

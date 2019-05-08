@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const config_database = require('@config/database');
+const config = require('@app/config');
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
 const chaiHttp = require('chai-http');
@@ -10,7 +10,7 @@ chai.use(chaiAsPromised);
 chai.use(chaiHttp);
 
 before(function(done) {
-    mongoose.connect(config_database.test_url, { useNewUrlParser: true, useFindAndModify: false });
+    mongoose.connect(config.database.test_url, { useNewUrlParser: true, useFindAndModify: false });
     mongoose.connection
         .once('open', () => done())
         .on('error', (error) => {

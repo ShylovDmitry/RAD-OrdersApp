@@ -1,13 +1,23 @@
 const Order = require('@models/order');
+const OrderService = require('@services/order');
 
 exports.create = async function(req, res) {
     try {
-        const order = new Order({
-            title: req.body.title
+        const {title, amount} = req.body;
+        const order = await OrderService.create({
+            title,
+            amount
         });
 
-        let newOrder = await order.save();
-        res.send(newOrder);
+        res.send(order);
+
+        setTimeout(async () => {
+            await OrderService.makePayment(order);
+        }, 0);
+
+        setTimeout(async () => {
+            await OrderService.deliver(order);
+        },  5000);
     } catch (err) {
         res.status(500).send({
             message: err.message || "Some error occurred while creating the Order."
@@ -15,13 +25,12 @@ exports.create = async function(req, res) {
     }
 };
 
-exports.doCancel = async function(req, res) {
+exports.cancel = async function(req, res) {
     try {
-        let order = await Order.findById(req.params.orderId);
-        order.status = Order.STATUSES.CANCELLED;
+        let anOrder = await Order.findById(req.params.orderId);
+        const order = OrderService.cancel(anOrder);
 
-        let newOrder = await order.save();
-        res.send(newOrder);
+        res.send(order);
     } catch (err) {
         res.status(500).send({
             message: err.message || "Some error occurred while creating the Order."

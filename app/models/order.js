@@ -21,6 +21,16 @@ const OrderSchema = mongoose.Schema({
             this._status = this.status;
             return status;
         }
+    },
+    amount: {
+        type: Number,
+        required: true,
+        set: function(amount) {
+            return amount * 100;
+        },
+        get: function(amount) {
+            return parseFloat((amount / 100).toFixed(2));
+        },
     }
 }, {
     timestamps: true

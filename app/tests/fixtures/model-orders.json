@@ -1,18 +1,22 @@
 {
     "order_created" : {
         "title": "Order Created",
+        "amount": 101,
         "status": "created"
     },
     "order_cancelled" : {
         "title": "Order Cancelled",
+        "amount": 202,
         "status": "cancelled"
     },
     "order_confirmed" : {
         "title": "Order Confirmed",
+        "amount": 303,
         "status": "confirmed"
     },
     "order_delivered" : {
         "title": "Order Delivered",
+        "amount": 404,
         "status": "delivered"
     }
 }
